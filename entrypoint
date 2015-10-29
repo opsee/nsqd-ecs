@@ -1,0 +1,3 @@
+#!/bin/sh
+
+source /etc/nsqd/environment && /nsqd -broadcast-address=$NSQD_BROADCAST_ADDRESS "$@"
