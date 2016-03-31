@@ -1,0 +1,21 @@
+dependencies:
+  override:
+    - npm install -g eslint
+    - npm install
+    - docker version
+machine:
+  pre:
+    - sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.0-circleci'
+    - sudo chmod 0755 /usr/bin/docker
+  services:
+    - docker
+test:
+  override:
+    - make
+deployment:
+  hub:
+    branch: master
+    owner: opsee
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - make docker-push
