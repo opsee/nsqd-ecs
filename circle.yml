@@ -7,6 +7,13 @@ machine:
     - sudo chmod 0755 /usr/bin/docker
   services:
     - docker
+  environment:
+    NSQD_VERSION: $CIRCLE_SHA1
+experimental:
+  notify:
+    branches:
+      only:
+        - master
 test:
   override:
     - make
