@@ -3,6 +3,9 @@ CONTAINER_TAG := $(shell git rev-parse HEAD)
 ifneq ($(NSQD_VERSION), "")
 	CONTAINER_TAG := $(NSQD_VERSION)
 endif
+ifeq (${CONTAINER_TAG}, "")
+	CONTAINER_TAG := $(CIRCLE_SHA1)
+endif
 CONTAINER_NAME := "quay.io/opsee/nsqd"
 
 all: clean build
